@@ -16,8 +16,12 @@ const clienteSlice = createSlice({
             state.listaClientes = state.listaClientes.filter(cliente => cliente.cpf !== action.payload.cpf);
         },
         atualizar:(state, action)=>{
-            const listaTemporariaClientes = state.listaClientes.filter(cliente => cliente.cpf !== action.payload.cpf);
-            state.listaClientes = [...listaTemporariaClientes, action.payload];
+            state.listaClientes = state.listaClientes.map(cliente => {
+                if (cliente.cpf === action.payload.cpf) {
+                  return cliente;
+                }
+                return action.payload;
+              });
         }
     }
 });

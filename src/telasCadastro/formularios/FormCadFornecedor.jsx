@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Container, Form, Row, Col, FloatingLabel, Button } from "react-bootstrap"
+import { useSelector, useDispatch } from "react-redux";
+import { adicionar, atualizar } from "../../redux/fornecedorReducer";
+
 export default function FormCadFornecedor(props) {
+    const { status, mensagem, listaFornecedores } = useSelector((state) => state.fornecedor);
+    const dispatch = useDispatch();
+
     const estadoInicialFornecedor = props.fornecedorParaEdicao;
     const [fornecedor, setFornecedor] = useState(estadoInicialFornecedor);
     const [formValidado, setFormValidado] = useState(false);
@@ -24,23 +30,24 @@ export default function FormCadFornecedor(props) {
         const form = e.currentTarget;
         if (form.checkValidity()) {
             if (!props.modoEdicao) {
-                props.setListaFornecedores([...props.listaFornecedores, fornecedor]);
+                dispatch(adicionar(fornecedor));
+
                 props.setMensagem('Fornecedor incluído com sucesso');
                 props.setTipoMensagem('success');
                 props.setMostrarMensagem(true);
-                setFornecedor(fornecedorVazio);
             }
             else {
                 if(window.confirm('Deseja realmente alterar este fornecedor?')) {
-                    props.setListaFornecedores([...props.listaFornecedores.filter((itemFornecedor) => itemFornecedor.cnpj !== fornecedor.cnpj), fornecedor]);
+                    dispatch(atualizar(fornecedor));
                     props.setMensagem('Fornecedor alterado com sucesso');
                     props.setTipoMensagem('success');
                     props.setMostrarMensagem(true);
                     props.setModoEdicao(false);
                     props.setFornecedorParaEdicao(fornecedorVazio);
-                    setFornecedor(fornecedorVazio);
+                    
                 }
             }
+            setFornecedor(fornecedorVazio);
             setFormValidado(false);
         }
         else {

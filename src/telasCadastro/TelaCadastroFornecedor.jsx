@@ -7,7 +7,7 @@ import { Container } from "react-bootstrap";
 
 export default function TelaCadastroFornecedor(props) {
     const [exibirFormulario, setExibirFormulario] = useState(false);
-    const [listaFornecedores, setListaFornecedores] = useState([]);
+    //const [listaFornecedores, setListaFornecedores] = useState([]);
     const [mostrarMensagem, setMostrarMensagem] = useState(false);
     const [mensagem, setMensagem] = useState("");
     const [tipoMensagem, setTipoMensagem] = useState("");
@@ -36,8 +36,6 @@ export default function TelaCadastroFornecedor(props) {
                         exibirFormulario ?
                             <FormCadFornecedor
                                 exibirFormulario={setExibirFormulario}
-                                listaFornecedores={listaFornecedores}
-                                setListaFornecedores={setListaFornecedores}
                                 fornecedorParaEdicao={fornecedorParaEdicao}
                                 setFornecedorParaEdicao={setFornecedorParaEdicao}
                                 modoEdicao={modoEdicao}
@@ -49,8 +47,6 @@ export default function TelaCadastroFornecedor(props) {
                             :
                             <TabelaFornecedores
                                 exibirFormulario={setExibirFormulario}
-                                listaFornecedores={listaFornecedores}
-                                setListaFornecedores={setListaFornecedores}
                                 fornecedorParaEdicao={fornecedorParaEdicao}
                                 setFornecedorParaEdicao={setFornecedorParaEdicao}
                                 modoEdicao={modoEdicao}
