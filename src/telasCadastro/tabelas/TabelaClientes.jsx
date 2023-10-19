@@ -1,10 +1,17 @@
 import { Container, Table, Button } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import { remover } from "../../redux/clienteReducer";
+
 export default function TabelaClientes(props) {
+    const { status, mensagem, listaClientes } = useSelector((state) => state.cliente);
+    const dispatch = useDispatch();
+
     function excluirCliente(cliente) {
         if(window.confirm('Deseja realmente excluir este cliente?')){
-            props.setListaClientes(
-                props.listaClientes.filter((clienteLista => clienteLista.cpf !== cliente.cpf))
-            );
+            dispatch(remover(cliente));
+            // props.setListaClientes(
+            //     props.listaClientes.filter((clienteLista => clienteLista.cpf !== cliente.cpf))
+            // );
         }
     }
     function editarCliente(cliente){
@@ -32,7 +39,7 @@ export default function TabelaClientes(props) {
                 </thead>
                 <tbody>
                     {
-                        props.listaClientes.map((cliente) => (
+                        listaClientes.map((cliente) => (
                             <tr key={cliente.cpf}>
                                 <td>{cliente.nome}</td>
                                 <td>{cliente.cpf}</td>

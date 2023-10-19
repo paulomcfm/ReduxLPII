@@ -1,22 +1,23 @@
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
+import ESTADO from "../recursos/estado";
 
-const clienteSlice = ({
+const clienteSlice = createSlice({
     name:'cliente',
     initialState:{
         status: ESTADO.OCIOSO,
         mensagem:'',
-        listaCliente:[]
+        listaClientes:[]
     },
     reducers:{
         adicionar:(state, action)=>{
             state.listaClientes.push(action.payload);
         },
         remover:(state, action)=>{
-            state.listaClientes = state.listaClientes.filter(cliente => cliente.cpf !== action.payload.cliente.cpf);
+            state.listaClientes = state.listaClientes.filter(cliente => cliente.cpf !== action.payload.cpf);
         },
         atualizar:(state, action)=>{
-            const listaTemporariaClientes = state.listaClientes.filter(cliente => cliente.cpf !== action.payload.cliente.cpf);
-            state.listaCliente = [...listaTemporariaClientes, action.payload.cliente];
+            const listaTemporariaClientes = state.listaClientes.filter(cliente => cliente.cpf !== action.payload.cpf);
+            state.listaClientes = [...listaTemporariaClientes, action.payload];
         }
     }
 });

@@ -4,9 +4,13 @@ import FormCadCliente from "./formularios/FormCadCliente";
 import TabelaClientes from "./tabelas/TabelaClientes";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
+//import { useSelector, useDispatch } from "react-redux";
 
 export default function TelaCadastroCliente(props) {
     const [exibirFormulario, setExibirFormulario] = useState(false);
+
+    //const {status,mensagem,listaClientes} = useSelector((state)=>state.cliente);
+
     //const [listaClientes, setListaClientes] = useState([]);
     const [mostrarMensagem, setMostrarMensagem] = useState(false);
     const [mensagem, setMensagem] = useState("");
@@ -36,8 +40,6 @@ export default function TelaCadastroCliente(props) {
                     exibirFormulario ?
                         <FormCadCliente
                             exibirFormulario={setExibirFormulario}
-                            listaClientes={listaClientes}
-                            setListaClientes={setListaClientes}
                             clienteParaEdicao={clienteParaEdicao}
                             setClienteParaEdicao={setClienteParaEdicao}
                             modoEdicao={modoEdicao}
@@ -49,8 +51,6 @@ export default function TelaCadastroCliente(props) {
                         :
                         <TabelaClientes
                             exibirFormulario={setExibirFormulario}
-                            listaClientes={listaClientes}
-                            setListaClientes={setListaClientes}
                             clienteParaEdicao={clienteParaEdicao}
                             setClienteParaEdicao={setClienteParaEdicao}
                             modoEdicao={modoEdicao}

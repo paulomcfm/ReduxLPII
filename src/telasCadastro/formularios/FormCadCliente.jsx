@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Button, Container, Form, Row, Col, FloatingLabel } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import { adicionar, atualizar } from "../../redux/clienteReducer";
+
 export default function FormCadCliente(props) {
+    const { status, mensagem, listaClientes } = useSelector((state) => state.cliente);
+    const dispatch = useDispatch();
+
     const estadoInicialCliente = props.clienteParaEdicao;
     const [cliente, setCliente] = useState(estadoInicialCliente);
     const [formValidado, setFormValidado] = useState(false);
@@ -28,25 +34,27 @@ export default function FormCadCliente(props) {
             //todos os campos preenchidos
             //mandar os dados para o backend
             if (!props.modoEdicao) {
-                props.setListaClientes([...props.listaClientes, cliente]);
+                // props.setListaClientes([...props.listaClientes, cliente]);
+                dispatch(adicionar(cliente));
+
                 props.setMensagem('Cliente incluído com sucesso');
                 props.setTipoMensagem('success');
                 props.setMostrarMensagem(true);
-                setCliente(clienteVazio);
             }
             else {
                 //filtra e adiciona
                 // TENTAR ARRUMAR A VERIFICACAO PRA CPF QUE FOI MODIFICADO PARA NAO CRIAR UM NOVO
-                if(window.confirm('Deseja realmente alterar este cliente?')) {
-                    props.setListaClientes([...props.listaClientes.filter((itemCliente) => itemCliente.cpf !== cliente.cpf), cliente]);
+                if (window.confirm('Deseja realmente alterar este cliente?')) {
+                    // props.setListaClientes([...props.listaClientes.filter((itemCliente) => itemCliente.cpf !== cliente.cpf), cliente]);
+                    dispatch(atualizar(cliente));
                     props.setMensagem('Cliente alterado com sucesso');
                     props.setTipoMensagem('success');
                     props.setMostrarMensagem(true);
                     props.setModoEdicao(false);
                     props.setClienteParaEdicao(clienteVazio);
-                    setCliente(clienteVazio);
                 }
-            }        
+            }
+            setCliente(clienteVazio);
             setFormValidado(false);
         }
         else {
