@@ -1,6 +1,12 @@
 import { Col, Container, FloatingLabel, Form, Row, Button } from "react-bootstrap";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { adicionar, atualizar } from "../../redux/produtoReducer";
+
 export default function FormCadProduto(props) {
+    const { status, mensagem, listaProdutos } = useSelector((state) => state.produto);
+    const dispatch = useDispatch();
+
     const estadoInicialProduto = props.produtoParaEdicao;
     const [produto, setProduto] = useState(estadoInicialProduto);
     const [formValidado, setFormValidado] = useState(false);
@@ -20,23 +26,21 @@ export default function FormCadProduto(props) {
         const form = e.currentTarget;
         if (form.checkValidity()) {
             if (!props.modoEdicao) {
-                props.setListaProdutos([...props.listaProdutos, produto]);
+                dispatch(adicionar(produto));
                 props.setMensagem('Produto incluído com sucesso');
                 props.setTipoMensagem('success');
                 props.setMostrarMensagem(true);
-                setProduto(produtoVazio);
             }
             else {
-                if(window.confirm('Deseja realmente alterar este produto?')) {
-                    props.setListaProdutos([...props.listaProdutos.filter((itemProd) => itemProd.nome !== itemProd.nome), produto]);
+                if (window.confirm('Deseja realmente alterar este produto?')) {
+                    dispatch(atualizar(produto));
                     props.setMensagem('Produto alterado com sucesso');
                     props.setTipoMensagem('success');
                     props.setMostrarMensagem(true);
                     props.setModoEdicao(false);
-                    props.setProdutoParaEdicao(produtoVazio);
-                    setProduto(produtoVazio);
                 }
             }
+            setProduto(produtoVazio);
             setFormValidado(false);
         }
         else {

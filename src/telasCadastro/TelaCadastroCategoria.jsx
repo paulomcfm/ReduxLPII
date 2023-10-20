@@ -5,10 +5,8 @@ import FormCadCategoria from "./formularios/FormCadCategoria";
 import Pagina from "../templates/Pagina";
 import TelaMensagem from "./TelaMensagem";
 
-
 export default function TelaCadastroCategoria(props) {
     const [exibirFormulario, setExibirFormulario] = useState(false);
-    const [listaCategorias, setListaCategorias] = useState([]);
     const [mostrarMensagem, setMostrarMensagem] = useState(false);
     const [mensagem, setMensagem] = useState("");
     const [tipoMensagem, setTipoMensagem] = useState("");
@@ -30,8 +28,6 @@ export default function TelaCadastroCategoria(props) {
                         exibirFormulario ?
                             <FormCadCategoria
                                 exibirFormulario={setExibirFormulario}
-                                listaCategorias={listaCategorias}
-                                setListaCategorias={setListaCategorias}
                                 categoriaParaEdicao={categoriaParaEdicao}
                                 setCategoriaParaEdicao={setCategoriaParaEdicao}
                                 modoEdicao={modoEdicao}
@@ -43,8 +39,6 @@ export default function TelaCadastroCategoria(props) {
                             :
                             <TabelaCategorias
                                 exibirFormulario={setExibirFormulario}
-                                listaCategorias={listaCategorias}
-                                setListaCategorias={setListaCategorias}
                                 categoriaParaEdicao={categoriaParaEdicao}
                                 setCategoriaParaEdicao={setCategoriaParaEdicao}
                                 modoEdicao={modoEdicao}

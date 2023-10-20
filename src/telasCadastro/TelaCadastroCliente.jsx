@@ -30,7 +30,7 @@ export default function TelaCadastroCliente(props) {
 
     if (mostrarMensagem) {
         return (
-            <TelaMensagem mensagem={mensagem} tipo={tipoMensagem} setMostrarMensagem={setMostrarMensagem}/>
+            <TelaMensagem mensagem={mensagem} tipo={tipoMensagem} setMostrarMensagem={setMostrarMensagem} />
         );
     }
     else {
