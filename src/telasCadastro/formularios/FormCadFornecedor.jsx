@@ -43,6 +43,7 @@ export default function FormCadFornecedor(props) {
                     props.setTipoMensagem('success');
                     props.setMostrarMensagem(true);
                     props.setModoEdicao(false);
+                    props.setFornecedorParaEdicao(fornecedorVazio);
                 }
             }
             setFornecedor(fornecedorVazio);

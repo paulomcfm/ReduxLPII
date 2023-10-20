@@ -18,9 +18,9 @@ const produtoSlice = createSlice({
         atualizar: (state, action) => {
             state.listaProdutos = state.listaProdutos.map(produto => {
                 if (produto.nome === action.payload.nome) {
-                    return produto;
+                    return action.payload;
                 }
-                return action.payload;
+                return produto;
             });
         }
     }

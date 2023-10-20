@@ -18,9 +18,9 @@ const fornecedorSlice = createSlice({
         atualizar: (state, action) => {
             state.listaFornecedores = state.listaFornecedores.map(fornecedor => {
                 if (fornecedor.cnpj === action.payload.cnpj) {
-                    return fornecedor;
+                    return action.payload;
                 }
-                return action.payload;
+                return fornecedor;
             });
         }
     }

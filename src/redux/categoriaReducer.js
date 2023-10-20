@@ -18,9 +18,9 @@ const categoriaSlice = createSlice({
         atualizar: (state, action) => {
             state.listaCategorias = state.listaCategorias.map(categoria => {
                 if (categoria.nome === action.payload.nome) {
-                    return categoria;
+                    return action.payload;
                 }
-                return action.payload;
+                return categoria;
             });
         }
     }

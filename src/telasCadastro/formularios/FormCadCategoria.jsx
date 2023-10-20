@@ -38,6 +38,7 @@ export default function FormCadCategoria(props) {
                     props.setTipoMensagem('success');
                     props.setMostrarMensagem(true);
                     props.setModoEdicao(false);
+                    props.setCategoriaParaEdicao(categoriaVazia);
                 }
             }
             setCategoria(categoriaVazia);

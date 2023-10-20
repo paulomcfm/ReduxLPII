@@ -18,9 +18,9 @@ const clienteSlice = createSlice({
         atualizar: (state, action) => {
             state.listaClientes = state.listaClientes.map(cliente => {
                 if (cliente.cpf === action.payload.cpf) {
-                    return cliente;
+                    return action.payload;
                 }
-                return action.payload;
+                return cliente;
             });
         }
     }

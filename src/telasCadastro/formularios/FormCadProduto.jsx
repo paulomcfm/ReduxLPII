@@ -38,6 +38,7 @@ export default function FormCadProduto(props) {
                     props.setTipoMensagem('success');
                     props.setMostrarMensagem(true);
                     props.setModoEdicao(false);
+                    props.setProdutoParaEdicao(produtoVazio);
                 }
             }
             setProduto(produtoVazio);
