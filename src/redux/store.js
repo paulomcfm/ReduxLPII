@@ -8,8 +8,8 @@ const store = configureStore({
     reducer: {
         cliente: clienteSlice,
         fornecedor: fornecedorSlice,
-        categoria: categoriaReducer,
-        produto: produtoReducer
+        categoria: categoriaSlice,
+        produto: produtoSlice
     }
 })
 
