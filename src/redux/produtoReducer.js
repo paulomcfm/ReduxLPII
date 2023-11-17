@@ -11,7 +11,7 @@ export const buscarProdutos = createAsyncThunk(
                 return {
                     status: dados.status,
                     mensagem: "",
-                    listaProdutos
+                    listaProdutos: dados.listaProdutos
                 }
             } else {
                 return {
