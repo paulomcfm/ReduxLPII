@@ -1,5 +1,5 @@
 import { useState } from "react";
-import TelaMensagem from "./telaMensagem";
+import TelaMensagem from "./TelaMensagem";
 import Pagina from "../templates/Pagina";
 import FormCadFornecedor from "./formularios/FormCadFornecedor";
 import TabelaFornecedores from "./tabelas/TabelaFornecedores";

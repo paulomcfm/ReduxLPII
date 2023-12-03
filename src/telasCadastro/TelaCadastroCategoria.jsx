@@ -1,6 +1,6 @@
 import { Container } from "react-bootstrap";
 import Pagina from "../templates/Pagina";
-import FormCadCategoria from "./formularios/FormCadCategorias";
+import FormCadCategoria from "./formularios/FormCadCategoria";
 import TabelaCategorias from "./tabelas/TabelaCategorias";
 import { useState } from "react";
 

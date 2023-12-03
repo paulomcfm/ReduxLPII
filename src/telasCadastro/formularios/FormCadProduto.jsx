@@ -7,8 +7,6 @@ import ESTADO from "../../recursos/estado";
 import { toast } from "react-toastify";
 
 export default function FormCadProduto(props) {
-    //recuperar as categorias
-    //os atributos deste objeto devem estar associados aos inputs do formulários
     const produtoVazio = {
         codigo: '0',
         descricao: '',
@@ -35,7 +33,7 @@ export default function FormCadProduto(props) {
 
     useEffect(() => {
         dispatch(buscarCategorias());
-    }, [dispatch]); //observar o despachante para buscar categorias e manter a interface atualizada com as categorias
+    }, [dispatch]);
 
     function manipularMudancas(e) {
         const componente = e.currentTarget;
@@ -57,7 +55,6 @@ export default function FormCadProduto(props) {
         if (form.checkValidity()) {
             if (!props.modoEdicao) {  
                 dispatch(adicionarProduto(produto));
-
                 props.setMensagem('Produto incluído com sucesso');
                 props.setTipoMensagem('success');
                 props.setMostrarMensagem(true);
@@ -105,8 +102,7 @@ export default function FormCadProduto(props) {
                         , { toastId: estado }) 
                 : 
                 null
-            }
-            
+            }    
             {
                 estado === ESTADO.OCIOSO ?
                 setTimeout(()=>{
