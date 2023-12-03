@@ -1,52 +1,37 @@
 import { Container } from "react-bootstrap";
-import { useState } from "react";
-import TabelaCategorias from "./tabelas/TabelaCategorias";
-import FormCadCategoria from "./formularios/FormCadCategoria";
 import Pagina from "../templates/Pagina";
-import TelaMensagem from "./TelaMensagem";
+import FormCadCategoria from "./formularios/FormCadCategorias";
+import TabelaCategorias from "./tabelas/TabelaCategorias";
+import { useState } from "react";
 
 export default function TelaCadastroCategoria(props) {
     const [exibirFormulario, setExibirFormulario] = useState(false);
-    const [mostrarMensagem, setMostrarMensagem] = useState(false);
-    const [mensagem, setMensagem] = useState("");
-    const [tipoMensagem, setTipoMensagem] = useState("");
     const [categoriaParaEdicao, setCategoriaParaEdicao] = useState({
-        nome: ''
-    })
+        codigo: '0',
+        descricao: ''
+    });
     const [modoEdicao, setModoEdicao] = useState(false);
 
-    if (mostrarMensagem) {
-        return (
-            <TelaMensagem mensagem={mensagem} tipo={tipoMensagem} setMostrarMensagem={setMostrarMensagem} />
-        );
-    }
-    else {
-        return (
-            <Container>
-                <Pagina>
-                    {
-                        exibirFormulario ?
-                            <FormCadCategoria
-                                exibirFormulario={setExibirFormulario}
-                                categoriaParaEdicao={categoriaParaEdicao}
-                                setCategoriaParaEdicao={setCategoriaParaEdicao}
-                                modoEdicao={modoEdicao}
-                                setModoEdicao={setModoEdicao}
-                                setMostrarMensagem={setMostrarMensagem}
-                                setMensagem={setMensagem}
-                                setTipoMensagem={setTipoMensagem}
-                            />
-                            :
-                            <TabelaCategorias
-                                exibirFormulario={setExibirFormulario}
-                                categoriaParaEdicao={categoriaParaEdicao}
-                                setCategoriaParaEdicao={setCategoriaParaEdicao}
-                                modoEdicao={modoEdicao}
-                                setModoEdicao={setModoEdicao}
-                            />
-                    }
-                </Pagina>
-            </Container>
-        );
-    }
+    return (
+        <Container>
+            <Pagina>
+                {
+                    exibirFormulario ? 
+                    <FormCadCategoria exibirFormulario={setExibirFormulario}
+                        categoriaParaEdicao={categoriaParaEdicao}
+                        setCategoriaParaEdicao={setCategoriaParaEdicao}
+                        modoEdicao={modoEdicao}
+                        setModoEdicao={setModoEdicao}
+                    />
+                        :
+                        <TabelaCategorias exibirFormulario={setExibirFormulario}
+                            categoriaParaEdicao={categoriaParaEdicao}
+                            setCategoriaParaEdicao={setCategoriaParaEdicao}
+                            modoEdicao={modoEdicao}
+                            setModoEdicao={setModoEdicao}
+                        />
+                }
+            </Pagina>
+        </Container>
+    )
 }

@@ -1,18 +1,22 @@
-import { Container, Button, Row, Col, FloatingLabel, Form } from "react-bootstrap";
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { atualizar, adicionar } from "../../redux/categoriaReducer";
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { Container, Form, Row, Col, Button, FloatingLabel, Spinner } from 'react-bootstrap';
+import { adicionarCategoria, atualizarCategoria } from '../../redux/categoriaReducer';
+import { useSelector, useDispatch } from 'react-redux';
+import ESTADO from '../../recursos/estado';
 
-export default function FormCadCategoria(props) {
-    const { status, mensagem, listaCategorias } = useSelector((state) => state.categoria);
-    const dispatch = useDispatch();
+export default function FormCadCategorias(props) {
 
+    const categoriaVazia = {
+        codigo: '0',
+        descricao: '',
+
+    }
     const estadoInicialCategoria = props.categoriaParaEdicao;
     const [categoria, setCategoria] = useState(estadoInicialCategoria);
     const [formValidado, setFormValidado] = useState(false);
-    const categoriaVazia = {
-        nome: ''
-    }
+    const { estado, mensagem, categorias } = useSelector((state) => state.categoria);
+    const dispatch = useDispatch();
 
     function manipularMudancas(e) {
         const componente = e.currentTarget;
@@ -23,27 +27,17 @@ export default function FormCadCategoria(props) {
         const form = e.currentTarget;
         if (form.checkValidity()) {
             if (!props.modoEdicao) {
-                dispatch(adicionar(categoria));
-
-                props.setMensagem('Categoria incluída com sucesso');
-                props.setTipoMensagem('success');
-                props.setMostrarMensagem(true);
-
-            } else {
-                // Atualize a categoria existente na lista de categorias
-                if (window.confirm('Deseja realmente alterar esta categoria?')) {
-                    dispatch(atualizar(categoria));
-                    
-                    props.setMensagem('Categoria alterada com sucesso');
-                    props.setTipoMensagem('success');
-                    props.setMostrarMensagem(true);
-                    props.setModoEdicao(false);
-                    props.setCategoriaParaEdicao(categoriaVazia);
-                }
+                dispatch(adicionarCategoria(categoria));
+            }
+            else {
+                dispatch(atualizarCategoria(categoria));
+                props.setModoEdicao(false);
+                props.setCategoriaParaEdicao(categoriaVazia);
             }
             setCategoria(categoriaVazia);
             setFormValidado(false);
-        } else {
+        }
+        else {
             setFormValidado(true);
         }
 
@@ -51,40 +45,83 @@ export default function FormCadCategoria(props) {
         e.preventDefault();
     }
 
+    if (estado === ESTADO.ERRO) {
+        toast.error(({ closeToast }) =>
+            <div>
+                <p>{mensagem}</p>
 
+            </div>
+            , { toastId: estado });
+    }
+    else if (estado === ESTADO.PENDENTE) {
+        toast(({ closeToast }) =>
+            <div>
+                <Spinner animation="border" role="status"></Spinner>
+                <p>Processando a requisição...</p>
+            </div>
+            , { toastId: estado });
+    }
+    else {
+        toast.dismiss();
+        return (
+            
+            <Container>
+                <h2>Cadastro de Categorias</h2>
+                <Form noValidate validated={formValidado} onSubmit={manipularSubmissao}>
+                    <Row>
+                        <Col>
+                            <Form.Group>
+                                <FloatingLabel
+                                    label="Código:"
+                                    className="mb-3"
+                                >
 
-    return (
-        <Container>
-            <Form noValidate validated={formValidado} onSubmit={manipularSubmissao}>
-                <Row>
-                    <Col md={4}>
-                        <Form.Group>
-                            <FloatingLabel
-                                controlId="floatingInput"
-                                label="Categoria:"
-                                className="mb-3"
-                            >
-                                <Form.Control type="text" placeholder="..." id="nome" name="nome"
-                                    value={categoria.nome}
-                                    onChange={manipularMudancas}
-                                    required />
-                            </FloatingLabel>
-                            <Form.Control.Feedback type="invalid">Informe a categoria!</Form.Control.Feedback>
-                        </Form.Group>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md={6} offset={5} className="d-flex justify-content-end">
-                        <Button type="submit" variant={"primary"} onClick={() => {
-                        }}>{props.modoEdicao ? "Alterar" : "Cadastrar"}</Button>
-                    </Col>
-                    <Col md={6} offset={5}>
-                        <Button type="button" variant={"secondary"} onClick={() => {
-                            props.exibirFormulario(false);
-                        }}>Voltar</Button>
-                    </Col>
-                </Row>
-            </Form>
-        </Container>
-    );
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="0"
+                                        id="codigo"
+                                        name="codigo"
+                                        value={categoria.codigo}
+                                        onChange={manipularMudancas}
+                                        disabled />
+                                </FloatingLabel>
+                                <Form.Control.Feedback type="invalid">Informe o código da categoria!</Form.Control.Feedback>
+                            </Form.Group>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <Form.Group>
+                                <FloatingLabel
+                                    label="Categoria:"
+                                    className="mb-3"
+                                >
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Informe a descrição da categoria"
+                                        id="descricao"
+                                        name="descricao"
+                                        value={categoria.descricao}
+                                        onChange={manipularMudancas}
+                                        required />
+                                </FloatingLabel>
+                                <Form.Control.Feedback type="invalid">Informe a descrição da categoria!</Form.Control.Feedback>
+                            </Form.Group>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md={6} offset={5} className="d-flex justify-content-end">
+                            <Button type="submit" variant={"primary"}>{props.modoEdicao ? "Alterar" : "Cadastrar"}</Button>
+                        </Col>
+                        <Col md={6} offset={5}>
+                            <Button type="button" variant={"secondary"} onClick={() => {
+                                props.exibirFormulario(false)
+                            }
+                            }>Voltar</Button>
+                        </Col>
+                    </Row>
+                </Form>
+            </Container>
+        );
+    }
 }

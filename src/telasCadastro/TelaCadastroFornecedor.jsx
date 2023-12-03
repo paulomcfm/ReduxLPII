@@ -1,5 +1,5 @@
 import { useState } from "react";
-import TelaMensagem from "./TelaMensagem";
+import TelaMensagem from "./telaMensagem";
 import Pagina from "../templates/Pagina";
 import FormCadFornecedor from "./formularios/FormCadFornecedor";
 import TabelaFornecedores from "./tabelas/TabelaFornecedores";
@@ -7,7 +7,6 @@ import { Container } from "react-bootstrap";
 
 export default function TelaCadastroFornecedor(props) {
     const [exibirFormulario, setExibirFormulario] = useState(false);
-    //const [listaFornecedores, setListaFornecedores] = useState([]);
     const [mostrarMensagem, setMostrarMensagem] = useState(false);
     const [mensagem, setMensagem] = useState("");
     const [tipoMensagem, setTipoMensagem] = useState("");

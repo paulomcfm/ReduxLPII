@@ -1,26 +1,67 @@
-import { Container, Table, Button } from "react-bootstrap";
+import { Container, Table, Button, Spinner} from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { remover } from "../../redux/clienteReducer";
+import { useEffect } from "react";
+import { removerCliente, buscarClientes } from "../../redux/clienteReducer.js";
+import ESTADO from "../../recursos/estado";
+import { toast } from "react-toastify";
 
 export default function TabelaClientes(props) {
-    const { status, mensagem, listaClientes } = useSelector((state) => state.cliente);
+    const { estado, mensagem, clientes } = useSelector((state) => state.cliente);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(buscarClientes());
+    }, [dispatch]);
 
     function excluirCliente(cliente) {
         if(window.confirm('Deseja realmente excluir este cliente?')){
-            dispatch(remover(cliente));
-            // props.setListaClientes(
-            //     props.listaClientes.filter((clienteLista => clienteLista.cpf !== cliente.cpf))
-            // );
+            dispatch(removerCliente(cliente));
         }
     }
+
     function editarCliente(cliente){
         props.setClienteParaEdicao(cliente);
         props.setModoEdicao(true);
         props.exibirFormulario(true);
     }
+
+    function apagarMensagens() {
+        setTimeout(() => {
+            toast.dismiss();
+        }, 2000)
+        return null;
+    }
+
     return (
         <Container>
+            {estado === ESTADO.ERRO ?
+                toast.error(({ closeToast }) =>
+                    <div>
+                        <p>{mensagem}</p>
+
+                    </div>
+                    , { toastId: estado })
+                :
+                null
+            }
+            {
+                estado === ESTADO.PENDENTE ?
+                    toast(({ closeToast }) =>
+                        <div>
+                            <Spinner animation="border" role="status"></Spinner>
+                            <p>Processando a requisição...</p>
+                        </div>
+                        , { toastId: estado })
+                    :
+                    null
+            }
+
+            {
+                estado === ESTADO.OCIOSO ?
+                    apagarMensagens()
+                    :
+                    null
+            }
             <Button type="button" style={{marginBottom: '20px'}} onClick={() => {
                 props.exibirFormulario(true);
             }}>Novo Cliente</Button>
@@ -39,7 +80,7 @@ export default function TabelaClientes(props) {
                 </thead>
                 <tbody>
                     {
-                        listaClientes.map((cliente) => (
+                        clientes?.map((cliente) => (
                             <tr key={cliente.cpf}>
                                 <td>{cliente.nome}</td>
                                 <td>{cliente.cpf}</td>
