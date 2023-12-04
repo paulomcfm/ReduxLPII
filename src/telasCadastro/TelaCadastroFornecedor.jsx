@@ -19,7 +19,7 @@ export default function TelaCadastroFornecedor(props) {
         bairro: '',
         numero: '',
         cep: ''
-    })
+    });
     const [modoEdicao, setModoEdicao] = useState(false);
 
     if (mostrarMensagem) {

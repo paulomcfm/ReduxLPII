@@ -38,7 +38,6 @@ export default function TabelaProdutos(props) {
                 toast.error(({ closeToast }) =>
                     <div>
                         <p>{mensagem}</p>
-
                     </div>
                     , { toastId: estado })
                 :
@@ -69,11 +68,10 @@ export default function TabelaProdutos(props) {
                 <thead>
                     <tr>
                         <th>Código</th>
+                        <th>Nome</th>
                         <th>Descrição</th>
-                        <th>Preço de Custo</th>
-                        <th>Preço de Venda</th>
-                        <th>Data de Validade</th>
-                        <th>Qtd. Estoque</th>
+                        <th>quantidade</th>
+                        <th>preco</th>
                         <th>Categoria</th>
                         <th>Ações</th>
                     </tr>
@@ -83,12 +81,11 @@ export default function TabelaProdutos(props) {
                         produtos?.map((produto) => {
                             return (<tr key={produto.codigo}>
                                 <td>{produto.codigo}</td>
+                                <td>{produto.nome}</td>
                                 <td>{produto.descricao}</td>
-                                <td>{produto.precoCusto}</td>
-                                <td>{produto.precoVenda}</td>
-                                <td>{produto.dataValidade}</td>
-                                <td>{produto.qtdEstoque}</td>
-                                <td>{produto.categoria.descricao}</td>
+                                <td>{produto.quantidade}</td>
+                                <td>{produto.preco}</td>
+                                <td>{produto.categoria.nome}</td>
                                 <td>
                                     <Button variant="danger" onClick={() => {
                                         excluirProduto(produto);

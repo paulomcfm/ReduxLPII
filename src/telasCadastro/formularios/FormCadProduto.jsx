@@ -9,14 +9,13 @@ import { toast } from "react-toastify";
 export default function FormCadProduto(props) {
     const produtoVazio = {
         codigo: '0',
+        nome: '',
         descricao: '',
-        precoCusto: '',
-        precoVenda: '',
-        dataValidade: '',
-        qtdEstoque: '',
+        quantidade: '',
+        preco: '',
         categoria: {
             codigo: 0,
-            descricao: ''
+            nome: ''
         }
     }
     const estadoInicialProduto = props.produtoParaEdicao;
@@ -45,7 +44,7 @@ export default function FormCadProduto(props) {
         setProduto({
             ...produto, categoria: {
                 "codigo": componente.value,
-                "descricao": componente.options[componente.selectedIndex].text
+                "nome": componente.options[componente.selectedIndex].text
             }
         });
     }
@@ -53,7 +52,7 @@ export default function FormCadProduto(props) {
     function manipularSubmissao(e) {
         const form = e.currentTarget;
         if (form.checkValidity()) {
-            if (!props.modoEdicao) {  
+            if (!props.modoEdicao) {
                 dispatch(adicionarProduto(produto));
                 props.setMensagem('Produto incluído com sucesso');
                 props.setTipoMensagem('success');
@@ -69,7 +68,7 @@ export default function FormCadProduto(props) {
                     props.setProdutoParaEdicao(produtoVazio);
                 }
             }
-            setProduto(produtoVazio); 
+            setProduto(produtoVazio);
             setFormValidado(false);
         }
         else {
@@ -99,17 +98,17 @@ export default function FormCadProduto(props) {
                             <Spinner animation="border" role="status"></Spinner>
                             <p>Processando a requisição...</p>
                         </div>
-                        , { toastId: estado }) 
-                : 
-                null
-            }    
+                        , { toastId: estado })
+                    :
+                    null
+            }
             {
                 estado === ESTADO.OCIOSO ?
-                setTimeout(()=>{
-                    toast.dismiss();
-                },2000)
-                :
-                null
+                    setTimeout(() => {
+                        toast.dismiss();
+                    }, 2000)
+                    :
+                    null
             }
             <Form noValidate validated={formValidado} onSubmit={manipularSubmissao}>
                 <Row>
@@ -134,6 +133,45 @@ export default function FormCadProduto(props) {
                     </Col>
                 </Row>
                 <Row>
+                    <Col md={9}>
+                        <Form.Group>
+                            <FloatingLabel
+                                label="Nome:"
+                                className="mb-3"
+                            >
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Informe o nome do produto"
+                                    id="nome"
+                                    name="nome"
+                                    value={produto.nome}
+                                    onChange={manipularMudancas}
+                                    required />
+                            </FloatingLabel>
+                            <Form.Control.Feedback type="invalid">Informe o nome do produto!</Form.Control.Feedback>
+                        </Form.Group>
+                    </Col>
+                    <Col md={3}>
+                        <Form.Group>
+                            <FloatingLabel
+                                label="Quantidade:"
+                                className="mb-3"
+                            >
+                                <Form.Control
+                                    type="text"
+                                    placeholder="0.00"
+                                    id="quantidade"
+                                    name="quantidade"
+                                    onChange={manipularMudancas}
+                                    value={produto.quantidade}
+                                    required
+                                />
+                            </FloatingLabel>
+                            <Form.Control.Feedback type="invalid">Informe a quantidade em estoque do produto!</Form.Control.Feedback>
+                        </Form.Group>
+                    </Col>
+                </Row>
+                <Row>
                     <Col>
                         <Form.Group>
                             <FloatingLabel
@@ -149,47 +187,7 @@ export default function FormCadProduto(props) {
                                     onChange={manipularMudancas}
                                     required />
                             </FloatingLabel>
-                            <Form.Control.Feedback type="invalid">Informe a descrição do produto!</Form.Control.Feedback>
-                        </Form.Group>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md={10}>
-                        <Form.Group>
-                            <FloatingLabel
-                                label="Preço de Custo:"
-                                className="mb-3"
-                            >
-                                <Form.Control
-                                    type="text"
-                                    placeholder="0.00"
-                                    id="precoCusto"
-                                    name="precoCusto"
-                                    onChange={manipularMudancas}
-                                    value={produto.precoCusto}
-                                    required
-                                />
-                            </FloatingLabel>
-                            <Form.Control.Feedback type="invalid">Informe o preço de custo do produto!</Form.Control.Feedback>
-                        </Form.Group>
-                    </Col>
-                    <Col md={2}>
-                        <Form.Group>
-                            <FloatingLabel
-                                label="Preço de Venda:"
-                                className="mb-3"
-                            >
-                                <Form.Control
-                                    type="text"
-                                    placeholder="0.00"
-                                    id="precoVenda"
-                                    name="precoVenda"
-                                    onChange={manipularMudancas}
-                                    value={produto.precoVenda}
-                                    required
-                                />
-                            </FloatingLabel>
-                            <Form.Control.Feedback type="invalid">Informe o preço de venda do produto!</Form.Control.Feedback>
+                            <Form.Control.Feedback type="invalid">Informe a descricao do produto!</Form.Control.Feedback>
                         </Form.Group>
                     </Col>
                 </Row>
@@ -197,39 +195,20 @@ export default function FormCadProduto(props) {
                     <Col md={4}>
                         <Form.Group>
                             <FloatingLabel
-                                label="Data de Validade:"
+                                label="Preço:"
                                 className="mb-3"
                             >
                                 <Form.Control
-                                    type="date"
-                                    placeholder=""
-                                    id="dataValidade"
-                                    name="dataValidade"
+                                    type="text"
+                                    placeholder="0.00"
+                                    id="preco"
+                                    name="preco"
                                     onChange={manipularMudancas}
-                                    value={produto.bairro}
+                                    value={produto.preco}
                                     required
                                 />
                             </FloatingLabel>
-                            <Form.Control.Feedback type="invalid">Informe a data de validade do produto!</Form.Control.Feedback>
-                        </Form.Group>
-                    </Col>
-                    <Col md={5}>
-                        <Form.Group>
-                            <FloatingLabel
-                                label="Quantidade em estoque:"
-                                className="mb-3"
-                            >
-                                <Form.Control
-                                    type="number"
-                                    placeholder="0"
-                                    id="qtdEstoque"
-                                    name="qtdEstoque"
-                                    onChange={manipularMudancas}
-                                    value={produto.qtdEstoque}
-                                    required
-                                />
-                            </FloatingLabel>
-                            <Form.Control.Feedback type="invalid">Informe a quantidade em estoque do produto!</Form.Control.Feedback>
+                            <Form.Control.Feedback type="invalid">Informe o preço do produto!</Form.Control.Feedback>
                         </Form.Group>
                     </Col>
                     <Col md={3}>
@@ -245,7 +224,7 @@ export default function FormCadProduto(props) {
                                 {
                                     categorias?.map((categoria) =>
                                         <option key={categoria.codigo} value={categoria.codigo}>
-                                            {categoria.descricao}
+                                            {categoria.nome}
                                         </option>
                                     )
                                 }
