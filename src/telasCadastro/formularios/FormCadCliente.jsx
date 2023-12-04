@@ -26,7 +26,6 @@ export default function FormCadCliente(props) {
 
     function manipularMudancas(e) {
         const componente = e.currentTarget;
-        console.log(componente.value)
         setCliente({ ...cliente, [componente.name]: componente.value });
     }
 
@@ -53,7 +52,6 @@ export default function FormCadCliente(props) {
         else {
             setFormValidado(true);
         }
-
         e.stopPropagation();
         e.preventDefault();
     }

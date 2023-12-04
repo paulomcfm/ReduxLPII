@@ -125,7 +125,7 @@ export const removerFornecedor = createAsyncThunk('fornecedor/remover', async (f
 const initialState = {
     estado: ESTADO.OCIOSO,
     mensagem: "",
-    fornecedor: [],
+    fornecedores: [],
 };
 
 const fornecedorSlice = createSlice({
@@ -141,7 +141,7 @@ const fornecedorSlice = createSlice({
             if (action.payload.status) {
                 state.estado = ESTADO.OCIOSO;
                 state.mensagem = action.payload.mensagem;
-                state.fornecedor = action.payload.listaFornecedores;
+                state.fornecedores = action.payload.listaFornecedores;
             } else {
                 state.estado = ESTADO.ERRO;
                 state.mensagem = action.payload.mensagem;
@@ -162,7 +162,7 @@ const fornecedorSlice = createSlice({
         }).addCase(atualizarFornecedor.fulfilled, (state, action) => {
             state.estado = ESTADO.OCIOSO;
             const indice = state.fornecedores.findIndex(fornecedor => fornecedor.cnpj === action.payload.fornecedor.cnpj);
-            state.fornecedor[indice] = action.payload.fornecedor;
+            state.fornecedores[indice] = action.payload.fornecedor;
             state.mensagem = action.payload.mensagem;
         }).addCase(atualizarFornecedor.pending, (state, action) => {
             state.estado = ESTADO.PENDENTE;

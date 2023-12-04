@@ -20,7 +20,7 @@ export default function TabelaFornecedores(props) {
     }
 
     function editarFornecedor(fornecedor) {
-        props.setForncedorParaEdicao(fornecedor);
+        props.setFornecedorParaEdicao(fornecedor);
         props.setModoEdicao(true);
         props.exibirFormulario(true);
     }
