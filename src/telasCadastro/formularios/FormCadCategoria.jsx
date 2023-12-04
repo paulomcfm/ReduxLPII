@@ -9,7 +9,7 @@ export default function FormCadCategorias(props) {
 
     const categoriaVazia = {
         codigo: '0',
-        descricao: '',
+        nome: '',
     }
     const estadoInicialCategoria = props.categoriaParaEdicao;
     const [categoria, setCategoria] = useState(estadoInicialCategoria);
@@ -108,9 +108,9 @@ export default function FormCadCategorias(props) {
                                 <Form.Control
                                     type="text"
                                     placeholder="Informe a descrição da categoria"
-                                    id="descricao"
-                                    name="descricao"
-                                    value={categoria.descricao}
+                                    id="nome"
+                                    name="nome"
+                                    value={categoria.nome}
                                     onChange={manipularMudancas}
                                     required />
                             </FloatingLabel>

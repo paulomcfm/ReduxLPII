@@ -68,7 +68,7 @@ export default function TabelaCategorias(props) {
                 <thead>
                     <tr>
                         <th>Código</th>
-                        <th>Descrição</th>
+                        <th>Nome</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -77,7 +77,7 @@ export default function TabelaCategorias(props) {
                         categorias?.map((categoria) => {
                             return (<tr key={categoria.codigo}>
                                 <td>{categoria.codigo}</td>
-                                <td>{categoria.descricao}</td>
+                                <td>{categoria.nome}</td>
                                 <td>
                                     <Button variant="danger" onClick={() => {
                                         excluirCategoria(categoria);

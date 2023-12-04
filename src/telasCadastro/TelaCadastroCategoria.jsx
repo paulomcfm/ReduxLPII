@@ -8,7 +8,7 @@ export default function TelaCadastroCategoria(props) {
     const [exibirFormulario, setExibirFormulario] = useState(false);
     const [categoriaParaEdicao, setCategoriaParaEdicao] = useState({
         codigo: '0',
-        descricao: ''
+        nome: ''
     });
     const [modoEdicao, setModoEdicao] = useState(false);
 
