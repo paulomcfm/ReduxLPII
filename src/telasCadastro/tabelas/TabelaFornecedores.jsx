@@ -55,7 +55,6 @@ export default function TabelaFornecedores(props) {
                     :
                     null
             }
-
             {
                 estado === ESTADO.OCIOSO ?
                     apagarMensagens()
@@ -73,7 +72,6 @@ export default function TabelaFornecedores(props) {
                         <th>E-mail</th>
                         <th>Telefone</th>
                         <th>Endereço</th>
-                        <th>N°</th>
                         <th>CEP</th>
                         <th>Ações</th>
                     </tr>
@@ -86,8 +84,7 @@ export default function TabelaFornecedores(props) {
                                 <td>{fornecedor.nome}</td>
                                 <td>{fornecedor.email}</td>
                                 <td>{fornecedor.telefone}</td>
-                                <td>{fornecedor.endereco}</td>
-                                <td>{fornecedor.numero}</td>
+                                <td>{fornecedor.endereco}, {fornecedor.numero}</td>
                                 <td>{fornecedor.cep}</td>
                                 <td><Button variant="danger" onClick={() => {
                                     excluirFornecedor(fornecedor);

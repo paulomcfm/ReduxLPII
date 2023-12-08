@@ -2,34 +2,34 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import ESTADO from "../recursos/estado";
 const urlBase = "http://localhost:4000/produto";
 
-export const buscarProdutos = createAsyncThunk('buscarProdutos', async () => {
+export const buscarProdutos = createAsyncThunk('produto/buscar', async () => {
     try {
         const resposta = await fetch(urlBase, { method: "GET" });
         const dados = await resposta.json();
         if (dados.status) {
             return {
                 status: dados.status,
-                mensagem: "",
-                listaProdutos: dados.listaProdutos
+                listaProdutos: dados.listaProdutos,
+                mensagem: ""             
             }
         }
         else {
             return {
                 status: dados.status,
-                mensagem: dados.mensagem,
-                listaProdutos: []
+                listaProdutos: [],
+                mensagem: 'Ocorreu um erro ao recuperar os produtos da base de dados.'
             }
         }
     } catch (erro) {
         return {
             status: false,
-            mensagem: "Erro ao recuperar produtos:" + erro.message,
-            listaProdutos: []
+            listaProdutos: [],
+            mensagem: 'Ocorreu um erro ao recuperar os produtos da base de dados:' + erro.message
         }
     }
 });
 
-export const adicionarProduto = createAsyncThunk('adicionarProduto', async (produto) => {
+export const adicionarProduto = createAsyncThunk('produto/adicionar', async (produto) => {
     try {
         const resposta = await fetch(urlBase, {
             method: "POST",
@@ -62,7 +62,7 @@ export const adicionarProduto = createAsyncThunk('adicionarProduto', async (prod
     }
 });
 
-export const atualizarProduto = createAsyncThunk('atualizarProduto', async (produto) => {
+export const atualizarProduto = createAsyncThunk('produto/atualizar', async (produto) => {
     try {
         const resposta = await fetch(urlBase, {
             method: "PUT",
@@ -94,7 +94,7 @@ export const atualizarProduto = createAsyncThunk('atualizarProduto', async (prod
     }
 });
 
-export const removerProduto = createAsyncThunk('removerProduto', async (produto) => {
+export const removerProduto = createAsyncThunk('produto/remover', async (produto) => {
     try {
         const resposta = await fetch(urlBase, {
             method: "DELETE",
@@ -162,7 +162,6 @@ const produtoSlice = createSlice({
             if (action.payload.status) {
                 state.estado = ESTADO.OCIOSO;
                 state.mensagem = action.payload.mensagem;
-
                 state.produtos.push(action.payload.produto);
             }
             else {

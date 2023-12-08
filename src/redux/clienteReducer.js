@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import ESTADO from "../recursos/estado";
 const urlBase = 'http://localhost:4000/cliente';
 
-export const buscarClientes = createAsyncThunk('cliente/buscarClientes', async () => {
+export const buscarClientes = createAsyncThunk('cliente/buscar', async () => {
     try {
         const resposta = await fetch(urlBase, { 
             method: 'GET' 
@@ -125,7 +125,7 @@ export const removerCliente = createAsyncThunk('cliente/remover', async (cliente
 const initialState = {
     estado: ESTADO.OCIOSO,
     mensagem: "",
-    clientes: [],
+    clientes: []
 };
 
 const clienteSlice = createSlice({
@@ -162,7 +162,7 @@ const clienteSlice = createSlice({
         }).addCase(atualizarCliente.fulfilled, (state, action) => {
             state.estado = ESTADO.OCIOSO;
             const indice = state.clientes.findIndex(cliente => cliente.cpf === action.payload.cliente.cpf);
-            state.cliente[indice] = action.payload.cliente;
+            state.clientes[indice] = action.payload.cliente;
             state.mensagem = action.payload.mensagem;
         }).addCase(atualizarCliente.pending, (state, action) => {
             state.estado = ESTADO.PENDENTE;

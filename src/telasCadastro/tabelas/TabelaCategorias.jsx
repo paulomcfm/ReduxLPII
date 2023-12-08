@@ -8,6 +8,7 @@ import { useEffect } from "react";
 export default function TabelaCategorias(props) {
     const { estado, mensagem, categorias } = useSelector(state => state.categoria);
     const dispatch = useDispatch();
+
     function excluirCategoria(categoria) {
         if (window.confirm('Deseja realmente excluir essa categoria?')) {
             dispatch(removerCategoria(categoria));
@@ -54,14 +55,13 @@ export default function TabelaCategorias(props) {
                     :
                     null
             }
-
             {
                 estado === ESTADO.OCIOSO ?
                     apagarMensagens()
                     :
                     null
             }
-            <Button type="button" onClick={() => {
+            <Button type="button" style={{ marginBottom: '20px' }} onClick={() => {
                 props.exibirFormulario(true);
             }}>Nova Categoria</Button>
             <Table striped bordered hover>

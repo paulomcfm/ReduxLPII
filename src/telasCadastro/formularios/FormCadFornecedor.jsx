@@ -145,7 +145,7 @@ export default function FormCadFornecedor(props) {
                             <Form.Control.Feedback type="invalid">Informe o email!</Form.Control.Feedback>
                         </Form.Group>
                     </Col>
-                    <Col md={8}>
+                    <Col md={6}>
                         <Form.Group>
                             <FloatingLabel
                                 label="Endereço:"
@@ -161,11 +161,7 @@ export default function FormCadFornecedor(props) {
                             <Form.Control.Feedback type="invalid">Informe o endereço!</Form.Control.Feedback>
                         </Form.Group>
                     </Col>
-
-
-                </Row>
-                <Row>
-                    <Col md={4}>
+                    <Col md={2}>
                         <Form.Group>
                             <FloatingLabel
                                 label="Nº:"
@@ -176,10 +172,25 @@ export default function FormCadFornecedor(props) {
                                     onChange={manipularMudancas}
                                     required />
                             </FloatingLabel>
+                            <Form.Control.Feedback type="invalid">Informe o número!</Form.Control.Feedback>
+                        </Form.Group>
+                    </Col>
+                </Row>
+                <Row>     
+                    <Col>
+                        <Form.Group>
+                            <FloatingLabel
+                                label="Bairro:"
+                                className="mb-3"
+                            >
+                                <Form.Control type="text" placeholder="Informe o bairro" id="bairro" name="bairro"
+                                    value={fornecedor.bairro}
+                                    onChange={manipularMudancas}
+                                    required />
+                            </FloatingLabel>
                             <Form.Control.Feedback type="invalid">Informe o bairro!</Form.Control.Feedback>
                         </Form.Group>
                     </Col>
-
                     <Col md={4}>
                         <Form.Group>
                             <FloatingLabel

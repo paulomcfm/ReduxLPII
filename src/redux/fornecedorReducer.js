@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import ESTADO from "../recursos/estado";
 const urlBase = 'http://localhost:4000/fornecedor';
 
-export const buscarFornecedores = createAsyncThunk('fornecedor/buscarFornecedores', async () => {
+export const buscarFornecedores = createAsyncThunk('fornecedor/buscar', async () => {
     try {
         const resposta = await fetch(urlBase, { 
             method: 'GET' 
@@ -125,7 +125,7 @@ export const removerFornecedor = createAsyncThunk('fornecedor/remover', async (f
 const initialState = {
     estado: ESTADO.OCIOSO,
     mensagem: "",
-    fornecedores: [],
+    fornecedores: []
 };
 
 const fornecedorSlice = createSlice({

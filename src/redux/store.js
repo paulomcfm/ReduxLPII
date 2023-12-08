@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import clienteSlice from './clienteReducer';
-import fornecedorSlice from './fornecedorReducer';
+import clienteSlice from './clienteReducer.js';
+import fornecedorSlice from './fornecedorReducer.js';
 import categoriaSlice from './categoriaReducer.js';
-import produtoSlice from './produtoReducer';
+import produtoSlice from './produtoReducer.js';
 
 const store = configureStore({
     reducer: {
@@ -11,6 +11,6 @@ const store = configureStore({
         categoria: categoriaSlice,
         produto: produtoSlice
     }
-})
+});
 
 export default store;

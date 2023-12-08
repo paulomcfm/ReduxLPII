@@ -6,7 +6,7 @@ import ESTADO from "../../recursos/estado";
 import { buscarProdutos, removerProduto } from "../../redux/produtoReducer.js";
 
 export default function TabelaProdutos(props) {
-    const { estado, mensagem, produtos } = useSelector((state) => state.produto);
+    const { estado, mensagem, produtos } = useSelector(state => state.produto);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -70,8 +70,8 @@ export default function TabelaProdutos(props) {
                         <th>Código</th>
                         <th>Nome</th>
                         <th>Descrição</th>
-                        <th>quantidade</th>
-                        <th>preco</th>
+                        <th>Quantidade</th>
+                        <th>Preço</th>
                         <th>Categoria</th>
                         <th>Ações</th>
                     </tr>

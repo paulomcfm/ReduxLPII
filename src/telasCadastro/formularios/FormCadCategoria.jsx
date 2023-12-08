@@ -27,9 +27,15 @@ export default function FormCadCategorias(props) {
         if (form.checkValidity()) {
             if (!props.modoEdicao) {
                 dispatch(adicionarCategoria(categoria));
+                props.setMensagem('Categoria incluída com sucesso');
+                props.setTipoMensagem('success');
+                props.setMostrarMensagem(true);
             }
             else {
                 dispatch(atualizarCategoria(categoria));
+                props.setMensagem('Categoria alterada com sucesso');
+                props.setTipoMensagem('success');
+                props.setMostrarMensagem(true);
                 props.setModoEdicao(false);
                 props.setCategoriaParaEdicao(categoriaVazia);
             }

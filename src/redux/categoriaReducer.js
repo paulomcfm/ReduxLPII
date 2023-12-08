@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import ESTADO from '../recursos/estado';
 const urlBase = 'http://localhost:4000/categoria';
-//Thunks
-export const buscarCategorias = createAsyncThunk('categoria/buscarCategorias', async () => {
+
+export const buscarCategorias = createAsyncThunk('categoria/buscar', async () => {
     try {
         const resposta = await fetch(urlBase, { method: 'GET' });
         const dados = await resposta.json();
@@ -123,7 +123,7 @@ export const removerCategoria = createAsyncThunk('categoria/remover', async (cat
 const initialState = {
     estado: ESTADO.OCIOSO,
     mensagem: "",
-    categorias: [],
+    categorias: []
 };
 
 const categoriaSlice = createSlice({
