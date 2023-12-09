@@ -4,7 +4,6 @@ import { adicionarProduto, atualizarProduto } from '../../redux/produtoReducer.j
 import { useSelector, useDispatch } from "react-redux";
 import { buscarCategorias } from "../../redux/categoriaReducer";
 import ESTADO from "../../recursos/estado";
-import { toast } from "react-toastify";
 
 export default function FormCadProduto(props) {
     const produtoVazio = {
@@ -81,35 +80,6 @@ export default function FormCadProduto(props) {
 
     return (
         <Container>
-            {estado === ESTADO.ERRO ?
-                toast.error(({ closeToast }) =>
-                    <div>
-                        <p>{mensagem}</p>
-
-                    </div>
-                    , { toastId: estado })
-                :
-                null
-            }
-            {
-                estado === ESTADO.PENDENTE ?
-                    toast(({ closeToast }) =>
-                        <div>
-                            <Spinner animation="border" role="status"></Spinner>
-                            <p>Processando a requisição...</p>
-                        </div>
-                        , { toastId: estado })
-                    :
-                    null
-            }
-            {
-                estado === ESTADO.OCIOSO ?
-                    setTimeout(() => {
-                        toast.dismiss();
-                    }, 2000)
-                    :
-                    null
-            }
             <Form noValidate validated={formValidado} onSubmit={manipularSubmissao}>
                 <Row>
                     <Col>

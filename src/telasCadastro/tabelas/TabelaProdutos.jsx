@@ -1,8 +1,6 @@
 import { Button, Container, Spinner, Table } from "react-bootstrap";
-import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ESTADO from "../../recursos/estado";
 import { buscarProdutos, removerProduto } from "../../redux/produtoReducer.js";
 
 export default function TabelaProdutos(props) {
@@ -37,42 +35,8 @@ export default function TabelaProdutos(props) {
         props.exibirFormulario(true);
     }
 
-    function apagarMensagens() {
-        setTimeout(() => {
-            toast.dismiss();
-        }, 2000)
-        return null;
-    }
-
     return (
         <Container>
-            {estado === ESTADO.ERRO ?
-                toast.error(({ closeToast }) =>
-                    <div>
-                        <p>{mensagem}</p>
-                    </div>
-                    , { toastId: estado })
-                :
-                null
-            }
-            {
-                estado === ESTADO.PENDENTE ?
-                    toast(({ closeToast }) =>
-                        <div>
-                            <Spinner animation="border" role="status"></Spinner>
-                            <p>Processando a requisição...</p>
-                        </div>
-                        , { toastId: estado })
-                    :
-                    null
-            }
-
-            {
-                estado === ESTADO.OCIOSO ?
-                    apagarMensagens()
-                    :
-                    null
-            }
             <Button type="button" style={{ marginBottom: '20px' }} onClick={() => {
                 props.setProdutoParaEdicao(produtoVazio);
                 props.exibirFormulario(true);

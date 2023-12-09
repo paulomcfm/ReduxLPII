@@ -53,35 +53,6 @@ export default function FormCadCategorias(props) {
 
     return (
         <Container>
-            {estado === ESTADO.ERRO ?
-                toast.error(({ closeToast }) =>
-                    <div>
-                        <p>{mensagem}</p>
-
-                    </div>
-                    , { toastId: estado })
-                :
-                null
-            }
-            {
-                estado === ESTADO.PENDENTE ?
-                    toast(({ closeToast }) =>
-                        <div>
-                            <Spinner animation="border" role="status"></Spinner>
-                            <p>Processando a requisição...</p>
-                        </div>
-                        , { toastId: estado })
-                    :
-                    null
-            }
-            {
-                estado === ESTADO.OCIOSO ?
-                    setTimeout(() => {
-                        toast.dismiss();
-                    }, 2000)
-                    :
-                    null
-            }
             <Form noValidate validated={formValidado} onSubmit={manipularSubmissao}>
                 <Row>
                     <Col>

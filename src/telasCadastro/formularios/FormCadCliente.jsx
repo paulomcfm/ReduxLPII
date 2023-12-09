@@ -59,35 +59,6 @@ export default function FormCadCliente(props) {
 
     return (
         <Container>
-            {estado === ESTADO.ERRO ?
-                toast.error(({ closeToast }) =>
-                    <div>
-                        <p>{mensagem}</p>
-
-                    </div>
-                    , { toastId: estado })
-                :
-                null
-            }
-            {
-                estado === ESTADO.PENDENTE ?
-                    toast(({ closeToast }) =>
-                        <div>
-                            <Spinner animation="border" role="status"></Spinner>
-                            <p>Processando a requisição...</p>
-                        </div>
-                        , { toastId: estado })
-                    :
-                    null
-            }
-            {
-                estado === ESTADO.OCIOSO ?
-                    setTimeout(() => {
-                        toast.dismiss();
-                    }, 2000)
-                    :
-                    null
-            }
             <Form noValidate validated={formValidado} onSubmit={manipularSubmissao}>
                 <Row>
                     <Col>
@@ -126,26 +97,27 @@ export default function FormCadCliente(props) {
                                     onChange={manipularMudancas}
                                     required />
                             </FloatingLabel>
-                            <Form.Control.Feedback type="invalid">Informe o cpf!</Form.Control.Feedback>
+                            <Form.Control.Feedback type="invalid">Informe o CPF!</Form.Control.Feedback>
                         </Form.Group>
                     </Col>
                     <Col md={3}>
-                        <FloatingLabel controlId="floatingSelect" label="Estado Civil:">
-                            <Form.Select
-                                aria-label="Estado civil"
-                                id='estadoCivil'
-                                name='estadoCivil'
-                                onChange={manipularMudancas}
-                                value={cliente.estadoCivil}
-                                requerid>
-                                <option value="Solteiro" selected>Solteiro</option>
-                                <option value="Casado">Casado</option>
-                                <option value="Separado">Separado</option>
-                                <option value="Divorciado">Divorciado</option>
-                                <option value="Viuvo">Viúvo</option>
-
-                            </Form.Select>
-                        </FloatingLabel>
+                        <Form.Group>
+                            <FloatingLabel
+                                label="CEP:"
+                                className="mb-3"
+                            >
+                                <Form.Control
+                                    type="text"
+                                    placeholder="00000-000"
+                                    id="cep"
+                                    name="cep"
+                                    onChange={manipularMudancas}
+                                    value={cliente.cep}
+                                    required
+                                />
+                            </FloatingLabel>
+                            <Form.Control.Feedback type="invalid">Informe o CEP!</Form.Control.Feedback>
+                        </Form.Group>
                     </Col>
                 </Row>
                 <Row>
@@ -265,27 +237,6 @@ export default function FormCadCliente(props) {
                                 <option value="TO">Tocantins</option>
                             </Form.Select>
                         </FloatingLabel>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md={4}>
-                        <Form.Group>
-                            <FloatingLabel
-                                label="CEP:"
-                                className="mb-3"
-                            >
-                                <Form.Control
-                                    type="text"
-                                    placeholder="00000-000"
-                                    id="cep"
-                                    name="cep"
-                                    onChange={manipularMudancas}
-                                    value={cliente.cep}
-                                    required
-                                />
-                            </FloatingLabel>
-                            <Form.Control.Feedback type="invalid">Informe o bairro!</Form.Control.Feedback>
-                        </Form.Group>
                     </Col>
                 </Row>
                 <Row>

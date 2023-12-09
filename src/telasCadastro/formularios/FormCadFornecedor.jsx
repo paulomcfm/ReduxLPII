@@ -1,9 +1,7 @@
 import { useState } from "react";
-import { toast } from 'react-toastify';
 import { Container, Form, Row, Col, FloatingLabel, Button, Spinner } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux";
 import { adicionarFornecedor, atualizarFornecedor } from "../../redux/fornecedorReducer.js";
-import ESTADO from '../../recursos/estado.js';
 
 export default function FormCadFornecedor(props) {
     const { estado, mensagem, fornecedores } = useSelector((state) => state.fornecedor);
@@ -61,35 +59,6 @@ export default function FormCadFornecedor(props) {
 
     return (
         <Container>
-            {estado === ESTADO.ERRO ?
-                toast.error(({ closeToast }) =>
-                    <div>
-                        <p>{mensagem}</p>
-
-                    </div>
-                    , { toastId: estado })
-                :
-                null
-            }
-            {
-                estado === ESTADO.PENDENTE ?
-                    toast(({ closeToast }) =>
-                        <div>
-                            <Spinner animation="border" role="status"></Spinner>
-                            <p>Processando a requisição...</p>
-                        </div>
-                        , { toastId: estado })
-                    :
-                    null
-            }
-            {
-                estado === ESTADO.OCIOSO ?
-                    setTimeout(() => {
-                        toast.dismiss();
-                    }, 2000)
-                    :
-                    null
-            }
             <Form noValidate validated={formValidado} onSubmit={manipularSubmissao}>
                 <Row>
                     <Col>

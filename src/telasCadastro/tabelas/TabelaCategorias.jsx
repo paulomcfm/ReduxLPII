@@ -1,8 +1,6 @@
 import { Button, Container, Spinner, Table } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { buscarCategorias, removerCategoria } from "../../redux/categoriaReducer";
-import ESTADO from "../../recursos/estado";
-import { toast } from "react-toastify";
 import { useEffect } from "react";
 
 export default function TabelaCategorias(props) {
@@ -26,46 +24,12 @@ export default function TabelaCategorias(props) {
         props.exibirFormulario(true);
     }
 
-    function apagarMensagens() {
-        setTimeout(() => {
-            toast.dismiss();
-        }, 2000)
-        return null;
-    }
-
     useEffect(() => {
         dispatch(buscarCategorias());
     }, [dispatch]);
 
     return (
         <Container>
-            {estado === ESTADO.ERRO ?
-                toast.error(({ closeToast }) =>
-                    <div>
-                        <p>{mensagem}</p>
-
-                    </div>
-                    , { toastId: estado })
-                :
-                null
-            }
-            {
-                estado === ESTADO.PENDENTE ?
-                    toast(({ closeToast }) =>
-                        <div>
-                            <Spinner animation="border" role="status"></Spinner>
-                            <p>Processando a requisição...</p>
-                        </div>
-                        , { toastId: estado })
-                    :
-                    null
-            }
-            {
-                estado === ESTADO.OCIOSO ?
-                    apagarMensagens()
-                    :
-                    null
-            }
             <Button type="button" style={{ marginBottom: '20px' }} onClick={() => {
                 props.setCategoriaParaEdicao(categoriaVazia);
                 props.exibirFormulario(true);

@@ -2,8 +2,6 @@ import { Container, Table, Button, Spinner } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { removerCliente, buscarClientes } from "../../redux/clienteReducer.js";
-import ESTADO from "../../recursos/estado";
-import { toast } from "react-toastify";
 
 export default function TabelaClientes(props) {
     const { estado, mensagem, clientes } = useSelector(state => state.cliente);
@@ -37,43 +35,8 @@ export default function TabelaClientes(props) {
         props.exibirFormulario(true);
     }
 
-    function apagarMensagens() {
-        setTimeout(() => {
-            toast.dismiss();
-        }, 2000)
-        return null;
-    }
-
     return (
         <Container>
-            {estado === ESTADO.ERRO ?
-                toast.error(({ closeToast }) =>
-                    <div>
-                        <p>{mensagem}</p>
-
-                    </div>
-                    , { toastId: estado })
-                :
-                null
-            }
-            {
-                estado === ESTADO.PENDENTE ?
-                    toast(({ closeToast }) =>
-                        <div>
-                            <Spinner animation="border" role="status"></Spinner>
-                            <p>Processando a requisição...</p>
-                        </div>
-                        , { toastId: estado })
-                    :
-                    null
-            }
-
-            {
-                estado === ESTADO.OCIOSO ?
-                    apagarMensagens()
-                    :
-                    null
-            }
             <Button type="button" style={{ marginBottom: '20px' }} onClick={() => {
                 props.setClienteParaEdicao(clienteVazio)
                 props.exibirFormulario(true);
