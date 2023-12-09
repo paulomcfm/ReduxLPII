@@ -9,6 +9,17 @@ export default function TabelaFornecedores(props) {
     const { estado, mensagem, fornecedores } = useSelector((state) => state.fornecedor);
     const dispatch = useDispatch();
 
+    const fornecedorVazio = {
+        cnpj: '',
+        nome: '',
+        email: '',
+        telefone: '',
+        endereco: '',
+        bairro: '',
+        numero: '',
+        cep: ''
+    }
+
     useEffect(() => {
         dispatch(buscarFornecedores());
     }, [dispatch]);
@@ -62,6 +73,7 @@ export default function TabelaFornecedores(props) {
                     null
             }
             <Button type="button" style={{ marginBottom: '20px' }} onClick={() => {
+                props.setFornecedorParaEdicao(fornecedorVazio);
                 props.exibirFormulario(true);
             }}>Novo Fornecedor</Button>
             <Table striped bordered hover>

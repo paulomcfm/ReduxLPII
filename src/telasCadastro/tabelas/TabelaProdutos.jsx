@@ -6,8 +6,20 @@ import ESTADO from "../../recursos/estado";
 import { buscarProdutos, removerProduto } from "../../redux/produtoReducer.js";
 
 export default function TabelaProdutos(props) {
-    const { estado, mensagem, produtos } = useSelector(state => state.produto);
+    const { estado, mensagem, produtos } = useSelector((state) => state.produto);
     const dispatch = useDispatch();
+
+    const produtoVazio = {
+        codigo: '0',
+        nome: '',
+        descricao: '',
+        quantidade: '',
+        preco: '',
+        categoria: {
+            codigo: 0,
+            nome: ''
+        }
+    }
 
     useEffect(() => {
         dispatch(buscarProdutos());
@@ -62,6 +74,7 @@ export default function TabelaProdutos(props) {
                     null
             }
             <Button type="button" style={{ marginBottom: '20px' }} onClick={() => {
+                props.setProdutoParaEdicao(produtoVazio);
                 props.exibirFormulario(true);
             }}>Novo Produto</Button>
             <Table striped bordered hover>
@@ -84,7 +97,7 @@ export default function TabelaProdutos(props) {
                                 <td>{produto.nome}</td>
                                 <td>{produto.descricao}</td>
                                 <td>{produto.quantidade}</td>
-                                <td>{produto.preco}</td>
+                                <td>R$ {produto.preco}</td>
                                 <td>{produto.categoria.nome}</td>
                                 <td>
                                     <Button variant="danger" onClick={() => {

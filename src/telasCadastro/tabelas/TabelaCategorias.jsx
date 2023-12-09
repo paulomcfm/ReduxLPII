@@ -9,6 +9,11 @@ export default function TabelaCategorias(props) {
     const { estado, mensagem, categorias } = useSelector(state => state.categoria);
     const dispatch = useDispatch();
 
+    const categoriaVazia = {
+        codigo: '0',
+        nome: '',
+    }
+
     function excluirCategoria(categoria) {
         if (window.confirm('Deseja realmente excluir essa categoria?')) {
             dispatch(removerCategoria(categoria));
@@ -62,6 +67,7 @@ export default function TabelaCategorias(props) {
                     null
             }
             <Button type="button" style={{ marginBottom: '20px' }} onClick={() => {
+                props.setCategoriaParaEdicao(categoriaVazia);
                 props.exibirFormulario(true);
             }}>Nova Categoria</Button>
             <Table striped bordered hover>

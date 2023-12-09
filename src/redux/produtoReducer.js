@@ -9,22 +9,19 @@ export const buscarProdutos = createAsyncThunk('produto/buscar', async () => {
         if (dados.status) {
             return {
                 status: dados.status,
-                listaProdutos: dados.listaProdutos,
-                mensagem: ""             
+                listaProdutos: dados.produtos             
             }
         }
         else {
             return {
-                status: dados.status,
-                listaProdutos: [],
-                mensagem: 'Ocorreu um erro ao recuperar os produtos da base de dados.'
+                status: dados.status,               
+                mensagem: 'Ocorreu um erro ao recuperar os produtos da base de dados.',
             }
         }
     } catch (erro) {
         return {
-            status: false,
-            listaProdutos: [],
-            mensagem: 'Ocorreu um erro ao recuperar os produtos da base de dados:' + erro.message
+            status: false,   
+            mensagem: 'Ocorreu um erro ao recuperar os produtos da base de dados:' + erro.message,
         }
     }
 });
@@ -101,7 +98,7 @@ export const removerProduto = createAsyncThunk('produto/remover', async (produto
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: produto
+            body: JSON.stringify(produto)
         });
         const dados = await resposta.json();
         if (dados.status) {

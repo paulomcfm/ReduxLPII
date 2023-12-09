@@ -61,7 +61,7 @@ export default function FormCadProduto(props) {
             else {
                 if (window.confirm('Deseja realmente alterar este produto?')) {
                     dispatch(atualizarProduto(produto));
-                    props.setMensagem('produto alterado com sucesso');
+                    props.setMensagem('Produto alterado com sucesso');
                     props.setTipoMensagem('success');
                     props.setMostrarMensagem(true);
                     props.setModoEdicao(false);

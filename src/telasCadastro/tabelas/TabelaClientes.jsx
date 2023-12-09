@@ -9,6 +9,18 @@ export default function TabelaClientes(props) {
     const { estado, mensagem, clientes } = useSelector(state => state.cliente);
     const dispatch = useDispatch();
 
+    const clienteVazio = {
+        nome: '',
+        cpf: '',
+        estadoCivil: 'solteiro',
+        endereco: '',
+        numero: '',
+        bairro: '',
+        cidade: '',
+        uf: 'SP',
+        cep: ''
+    }
+
     useEffect(() => {
         dispatch(buscarClientes());
     }, [dispatch]);
@@ -63,6 +75,7 @@ export default function TabelaClientes(props) {
                     null
             }
             <Button type="button" style={{ marginBottom: '20px' }} onClick={() => {
+                props.setClienteParaEdicao(clienteVazio)
                 props.exibirFormulario(true);
             }}>Novo Cliente</Button>
             <Table striped bordered hover>

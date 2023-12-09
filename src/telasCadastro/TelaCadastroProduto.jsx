@@ -49,7 +49,8 @@ export default function TelaCadastroProduto(props) {
                                 setExibirFormulario={setExibirFormulario}
                                 modoEdicao={modoEdicao}
                                 setModoEdicao={setModoEdicao}
-                                setProdutoParaEdicao={setProdutoParaEdicao} />
+                                setProdutoParaEdicao={setProdutoParaEdicao}
+                            />
                     }
                 </Pagina>
             </Container>
